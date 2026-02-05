@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Stock Analytics</h1>
+    <select id="stockSelect" class="bg-slate-800 border border-slate-700 rounded px-3 py-1">
+        <option value="">-- Select Stock --</option>
+        {% for stock in stocks %}
+            <option value="{{ stock.symbol }}">{{ stock.symbol }}</option>
+        {% empty %}
+            <option value="RELIANCE">RELIANCE (Demo)</option>
+            <option value="TCS">TCS (Demo)</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="grid grid-cols-4 gap-4" id="metrics-grid">
+    <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+        <div class="text-slate-400 text-xs uppercase">Z-Score</div>
+        <div id="zscore" class="text-2xl font-bold mt-1">--</div>
+    </div>
+    <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+        <div class="text-slate-400 text-xs uppercase">Debt/Equity</div>
+        <div id="debteq" class="text-2xl font-bold mt-1">--</div>
+    </div>
+    <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+        <div class="text-slate-400 text-xs uppercase">Volatility</div>
+        <div id="volatility" class="text-2xl font-bold mt-1">--</div>
+    </div>
+    <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+        <div class="text-slate-400 text-xs uppercase">Current Price</div>
+        <div id="price" class="text-2xl font-bold mt-1">--</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('stockSelect').addEventListener('change', function() {
+        if(!this.value) return;
+        fetch(`/api/stock/${this.value}/`)
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById('zscore').innerText = data.z_score;
+            document.getElementById('debteq').innerText = data.debt_equity;
+            document.getElementById('volatility').innerText = data.volatility + '%';
+            document.getElementById('price').innerText = '₹' + data.price;
+        });
+    });
+</script>
+{% endblock %}

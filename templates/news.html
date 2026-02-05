@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">Market News</h1>
+<div class="grid grid-cols-2 gap-4">
+    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-sky-500 transition">
+        <span class="text-xs font-bold text-sky-500">REUTERS</span>
+        <h3 class="font-semibold text-lg mt-1">Global markets rally as inflation data cools</h3>
+        <p class="text-slate-400 text-sm mt-2">Major indices hit record highs today...</p>
+    </div>
+    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-sky-500 transition">
+        <span class="text-xs font-bold text-sky-500">BLOOMBERG</span>
+        <h3 class="font-semibold text-lg mt-1">Tech sector sees massive inflow of capital</h3>
+        <p class="text-slate-400 text-sm mt-2">AI stocks continue to dominate the conversation...</p>
+    </div>
+</div>
+{% endblock %}

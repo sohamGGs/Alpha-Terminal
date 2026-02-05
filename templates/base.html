@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="bg-slate-950 text-slate-50 font-sans">
+    <div class="flex h-screen overflow-hidden">
+        <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col p-5">
+            <div class="mb-10">
+                <span class="text-xl font-bold text-sky-400">Alpha</span>
+                <span class="text-xl font-light text-slate-400">Terminal</span>
+            </div>
+            <nav class="flex flex-col gap-2">
+                <a href="{% url 'dashboard' %}" class="p-3 rounded-lg hover:bg-slate-800 {% if active_tab == 'dashboard' %}bg-slate-800 text-sky-400{% endif %}">Dashboard</a>
+                <a href="{% url 'analytics' %}" class="p-3 rounded-lg hover:bg-slate-800 {% if active_tab == 'analytics' %}bg-slate-800 text-sky-400{% endif %}">Analytics</a>
+                <a href="{% url 'news' %}" class="p-3 rounded-lg hover:bg-slate-800 {% if active_tab == 'news' %}bg-slate-800 text-sky-400{% endif %}">News</a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 flex flex-col overflow-hidden relative">
+            <div class="flex-1 overflow-y-auto p-8">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
